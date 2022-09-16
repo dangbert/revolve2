@@ -1,6 +1,6 @@
 .dockerignore
-**/.env
-**/docker-compose*.yml
+docker/.env
+docker/docker-compose*.yml
 **/README.md
 env/
 .venv/
