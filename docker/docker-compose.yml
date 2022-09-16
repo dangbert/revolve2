@@ -1,0 +1,16 @@
+version: "3.8"
+# note: a default network is created between the containers:
+#   https://docs.docker.com/compose/networking/
+#   sudo docker network inspect personalpedia_default
+
+services:
+  # flask container config:
+  main:
+    build:
+      context: ..
+      # location of dockerfile (relative to context path above):
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ../:/revolve2
+
+    command: 'bash -c "echo sleeping \"(enter container to run commands)...\" && sleep 30d"'

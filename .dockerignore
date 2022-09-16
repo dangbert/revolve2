@@ -1,0 +1,8 @@
+.dockerignore
+**/.env
+**/docker-compose*.yml
+**/README.md
+env/
+.venv/
+**/__pycache
+**/.pytest_cache
