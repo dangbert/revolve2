@@ -1,6 +1,11 @@
 #!/bin/bash
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/vars.sh" # read variables
 
-study="default_study"
-mainpath="karine"
-mkdir /storage/${mainpath}/${study};
-screen -d -m -S run_loop -L -Logfile /storage/${mainpath}/${study}/setuploop.log ./experiments/${study}/setup-experiments.sh;
+function main () {
+    mkdir "${studypath}"
+    # start a screen session running setup-experiments.sh
+    screen -d -m -S run_loop -L -Logfile "${studypath}/setuploop.log" "${SCRIPT_DIR}/setup-experiments.sh"
+}
+
+main "$@"

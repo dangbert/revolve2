@@ -2,6 +2,7 @@ import argparse
 import logging
 from random import Random, random
 import sys
+import os
 import multineat
 
 from genotype import random as random_genotype
@@ -16,7 +17,7 @@ async def main() -> None:
 
     args = Config()._get_params()
 
-    mainpath = "karine"
+    mainpath = os.getlogin() # current user's username
 
     logging.basicConfig(
         level=logging.INFO,
