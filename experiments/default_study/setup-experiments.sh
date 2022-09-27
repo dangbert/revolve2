@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 #set -x
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -16,8 +16,9 @@ function main () {
     runs=10
     num_generations="100"
 
-    num_terminals=2
+    num_terminals=2 # DO NOT TOUCH
 
+    mkdir -p "${studypath}"
     mkdir "${studypath}/analysis"
 
     possible_screens=()
@@ -39,10 +40,10 @@ function main () {
 
         for obj in ${arr[@]}; do
             if [[ "$obj" == *"screen_"* ]]; then
-            printf "\n screen ${obj} is on\n"
-            screen="$(cut -d'_' -f2 <<<"$obj")"
-            active_experiments+=("$(cut -d'_' -f3 -<<<"$obj")_$(cut -d'_' -f4 -<<<"$obj")")
-            active_screens+=($screen)
+                printf "\n screen ${obj} is on\n"
+                screen="$(cut -d'_' -f2 <<<"$obj")"
+                active_experiments+=("$(cut -d'_' -f3 -<<<"$obj")_$(cut -d'_' -f4 -<<<"$obj")")
+                active_screens+=($screen)
             fi
         done
 
@@ -64,7 +65,6 @@ function main () {
 
                 #check experiments status
                 if [[ -f "$file" ]]; then
-
                     lastgen=$(grep -c "Finished generation" $file);
                     echo "latest finished gen ${lastgen}";
 
@@ -82,7 +82,7 @@ function main () {
                     unfinished+=("${experiment}_${run}")
                     # only if not already running
                         if [[ ! " ${active_experiments[@]} " =~ " ${experiment}_${run} " ]]; then
-                        to_do+=("${experiment}_${run}")
+                            to_do+=("${experiment}_${run}")
                         fi
                 fi
             done
@@ -100,8 +100,19 @@ function main () {
 
             # nice -n19 python3  experiments/${study}/optimize.py
             printf "\n >> (re)starting screen_${free_screens[$p]}_${to_d} \n\n"
-            screen -d -m -S screen_${free_screens[$p]}_${to_d} -L -Logfile "${studypath}/${exp}_${run}.log" python3 "$exppath/optimize.py" \
-                --experiment_name "${exp}" --seasons_conditions "${seasons_conditions[$idx]}" --run "${run}" "--study=${study}" --num_generations "${num_generations}";
+
+            # full command to be run in screen session
+            local CMD=(
+                python3 "$exppath/optimize.py" 
+                --experiment_name "${exp}"
+                --seasons_conditions "${seasons_conditions[$idx]}"
+                --run "${run}"
+                "--study=${study}"
+                --num_generations
+                "${num_generations}"
+            )
+            echo "running command: ${CMD[@]}"
+            screen -d -m -S screen_${free_screens[$p]}_${to_d} -L -Logfile "${studypath}/${exp}_${run}.log" ${CMD[@]}
 
             p=$((${p}+1))
         done

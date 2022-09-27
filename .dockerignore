@@ -1,5 +1,6 @@
 .dockerignore
 docker/.env
+docker/*.tar
 docker/docker-compose*.yml
 **/README.md
 env/

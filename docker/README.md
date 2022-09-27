@@ -1,13 +1,22 @@
 # Using Docker with Revolve2
 
-The following assumes you have already installed: 
+## Prerequisites:
+
+The following assumes you have already installed (on your host machine):
+
 * [docker](https://docs.docker.com/engine/install/)
 * [docker-compose](https://docs.docker.com/compose/install/linux/)
+
+* [NVIDIA GPU driver](https://www.nvidia.com/Download/index.aspx?lang=en-us) (you must install one even if you don't have a GPU).
+  * See [install guide here](https://download.nvidia.com/XFree86/Linux-x86_64/304.137/README/installdriver.html) if needed.
+  * The IsaacGym engine needs this driver to be installed, even though it can also run with just a CPU.
 
 Also you must download the following into the docker/lib folder:
 
 * `IsaacGym_Preview_4_Package.tar.gz`, [download here](https://developer.nvidia.com/isaac-gym/download)
 
+
+## Running Docker:
 
 ````bash
 # building image:
