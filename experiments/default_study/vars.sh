@@ -10,3 +10,19 @@ study="$(basename "$(realpath "$SCRIPT_DIR")")" # e.g. "default_study"
 mainpath="/storage/$USER"
 # path to this particular experiment:
 studypath="${mainpath}/${study}"
+
+
+experiments=("defaultexperiment")
+seasons_conditions=("1.0_1.0_0")
+runs=10
+num_generations="100"
+num_terminals=2 # DO NOT TOUCH
+
+# gens for boxplots and snapshots
+generations=(100)
+# these params are the same for all exps
+# gens for boxplots and snapshots
+generations=(100)
+#gen for lineplots
+final_gen=100
+runs=10

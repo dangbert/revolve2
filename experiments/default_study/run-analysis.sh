@@ -4,16 +4,8 @@
 #experiments="exp1,epx2"
 # exps order is the same for all params
 
-experiments=("defaultexperiment")
-
-# these params are the same for all exps
-# gens for boxplots and snapshots
-generations=(100)
-#gen for lineplots
-final_gen=100
-runs=10
-mainpath="karine"
-study="default_study"
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/vars.sh" # read variables
 
 python experiments/${study}/snapshots_bests.py $study $experiments $runs $generations $mainpath;
 python experiments/${study}/bests_snap_2d.py $study $experiments $runs $generations $mainpath;

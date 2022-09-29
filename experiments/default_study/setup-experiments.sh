@@ -11,12 +11,6 @@ source "$SCRIPT_DIR/vars.sh" # read variables
 # exps order is the same for all params
 
 function main () {
-    experiments=("defaultexperiment")
-    seasons_conditions=("1.0_1.0_0")
-    runs=10
-    num_generations="100"
-
-    num_terminals=2 # DO NOT TOUCH
 
     mkdir -p "${studypath}"
     mkdir "${studypath}/analysis"
@@ -73,7 +67,7 @@ function main () {
 
                         # only if not already running
                         if [[ ! " ${active_experiments[@]} " =~ " ${experiment}_${run} " ]]; then
-                        to_do+=("${experiment}_${run}")
+                            to_do+=("${experiment}_${run}")
                         fi
                     fi
                 else

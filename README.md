@@ -26,11 +26,11 @@ virtualenv env
 sudo apt install libcereal-dev screen libcairo2-dev pkg-config python3-dev python3-opencv
 mkdir -p deps
 cd deps
-wget https://github.com/ci-group/MultiNEAT/archive/refs/tags/v0.10.tar.gz && tar -xvzf v0.10.tar.gz && pip install MultiNEAT-0.10/
+wget https://github.com/ci-group/MultiNEAT/archive/refs/tags/v0.10.tar.gz && tar -xvzf v0.10.tar.gz && pip3 install MultiNEAT-0.10/
 
 # now download https://developer.nvidia.com/isaac-gym/download
 #   and place file in current folder ('deps)
-tar -xvzf IsaacGym_Preview_4_Package.tar.gz && pip install isaacgym/python
+tar -xvzf IsaacGym_Preview_4_Package.tar.gz && pip3 install isaacgym/python
 cd ..
 
 # now test isaac installation with:
@@ -38,8 +38,8 @@ cd ..
 python3 deps/isaacgym/python/examples/joint_monkey.py
 
 # install revolve2 (from root of this repo)
-pip install -e core/ genotypes/cppnwin/ runners/isaacgym/
-pip install numpy pycairo opencv-python squaternion scikit-learn colored seaborn statannot greenlet
+pip3 install -e core/ genotypes/cppnwin/ runners/isaacgym/
+pip3 install numpy pycairo opencv-python squaternion scikit-learn colored seaborn statannot greenlet
 ````
 
 ### Run Example Experiment:
