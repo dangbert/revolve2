@@ -12,8 +12,8 @@ source "$SCRIPT_DIR/vars.sh" # read variables
 
 function main () {
 
-    mkdir -p "${studypath}"
-    mkdir "${studypath}/analysis"
+    #mkdir -p "${studypath}"
+    mkdir -p "${studypath}/analysis"
 
     possible_screens=()
 
@@ -113,16 +113,16 @@ function main () {
 
         # if all experiments are finished, makes video
         if [ -z "$unfinished" ]; then
-            file="${studypath}/analysis/video_bests.mpg";
+            file="${studypath}/analysis/video_bests.mpg"
 
             if [ -f "$file" ]; then
                 printf ""
             else
                 printf " \n making video..."
-                screen -d -m -S videos ffmpeg -f x11grab -r 25 -i :1 -qscale 0 $file;
-                python3 experiments/${study}/watch_robots.py;
-                killall screen;
-                printf " \n finished video!"
+                screen -d -m -S videos ffmpeg -f x11grab -r 25 -i :1 -qscale 0 "$file"
+                python3 "${exppath}/watch_robots.py"
+                killall screen
+                printf " \n finished video (killed screens)!"
             fi
         fi
         sleep 1800;

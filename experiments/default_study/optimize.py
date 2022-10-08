@@ -39,6 +39,7 @@ async def main() -> None:
 
     # database
     database = open_async_database_sqlite(f'/storage/{mainpath}/{args.study_name}/{args.experiment_name}/run_{args.run}')
+    print(args.experiment)
 
     # process id generator
     process_id_gen = ProcessIdGen()

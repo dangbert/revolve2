@@ -5,22 +5,23 @@ import seaborn as sb
 from statannot import add_stat_annotation
 import pprint
 import sys
+import os
+
 
 parser = argparse.ArgumentParser()
-parser.add_argument("study")
-parser.add_argument("experiments")
-parser.add_argument("runs")
-parser.add_argument("generations")
-parser.add_argument("mainpath")
-args = parser.parse_args()
+# parser.add_argument("study")
+# parser.add_argument("experiments")
+# parser.add_argument("runs")
+# parser.add_argument("generations")
+# parser.add_argument("mainpath")
+# args = parser.parse_args()
 
-study = args.study
-experiments_name = args.experiments.split(',')
-runs = list(range(1, int(args.runs) + 1))
-generations = list(map(int, args.generations.split(',')))
-mainpath = args.mainpath
+study = os.environ['study']
+experiments_name = os.environ['experiments'].split(',')
+runs = list(range(1, int(os.environ['runs']) + 1))
+generations = list(map(int, os.environ['generations'].split(',')))
+mainpath = os.environ['mainpath']
 
-study = study
 experiments = experiments_name
 inner_metrics = ['median', 'max']
 runs = runs
@@ -31,7 +32,8 @@ clrs = ['#009900',
         '#EE8610',
         '#7550ff',
         '#876044']
-path = f'/storage/{mainpath}/{study}'
+# path = f'/storage/{mainpath}/{study}'
+path = f'{mainpath}/{study}'
 
 measures = {
     'pop_diversity': ['Diversity', 0, 1],

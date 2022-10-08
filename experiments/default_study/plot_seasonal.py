@@ -11,20 +11,21 @@ from revolve2.core.database import open_async_database_sqlite
 from sqlalchemy.future import select
 from revolve2.core.optimization.ea.generic_ea import DbEnvconditions
 from ast import literal_eval
+import os
 
-parser = argparse.ArgumentParser()
-parser.add_argument("study")
-parser.add_argument("experiments")
-parser.add_argument("runs")
-parser.add_argument("generations")
-parser.add_argument("mainpath")
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("study")
+# parser.add_argument("experiments")
+# parser.add_argument("runs")
+# parser.add_argument("generations")
+# parser.add_argument("mainpath")
+# args = parser.parse_args()
 
-study = args.study
-experiments_name = args.experiments.split(',')
-runs = list(range(1, int(args.runs) + 1))
-generations = list(map(int, args.generations.split(',')))
-mainpath = args.mainpath
+study = os.environ['study']
+experiments_name = os.environ['experiments'].split(',')
+runs = list(range(1, int(os.environ['runs']) + 1))
+generations = list(map(int, os.environ['generations'].split(',')))
+mainpath = os.environ['mainpath']
 
 study = study
 experiments = experiments_name
@@ -37,7 +38,7 @@ clrs = ['#009900',
         '#EE8610',
         '#7550ff',
         '#876044']
-path = f'/storage/{mainpath}/{study}'
+path = f'{mainpath}/{study}'
 
 measures = {
     'pop_diversity': ['Diversity', 0, 1],
@@ -74,7 +75,7 @@ env_conditions = {}
 
 async def main() -> None:
 
-    db = open_async_database_sqlite(f'/storage/{mainpath}/{study}/{experiments[0]}/run_{runs[0]}')
+    db = open_async_database_sqlite(f'{mainpath}/{study}/{experiments[0]}/run_{runs[0]}')
     async with AsyncSession(db) as session:
         rows = ((await session.execute(select(DbEnvconditions).order_by(DbEnvconditions.id))).all())
         for c_row in rows:

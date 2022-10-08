@@ -208,6 +208,8 @@ class Optimizer(EAOptimizer[Genotype, float]):
     def _init_runner(self) -> None:
         self._runner = {}
         for env in self.env_conditions:
+            # TODO: can we make the headless var automatically update depending on whether we are running on a Ripper
+            #  or remote?
             self._runner[env] = (LocalRunner(LocalRunner.SimParams(), headless=True, env_conditions=self.env_conditions[env]))
 
     def _select_parents(

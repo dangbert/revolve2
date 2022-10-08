@@ -23,20 +23,22 @@ from revolve2.core.optimization.ea.generic_ea._database import (
 
 class Analysis:
 
-    def __init__(self, args):
+    def __init__(self):
 
-        study = args.study
-        experiments_name = args.experiments.split(',')
-        runs = list(range(1, int(args.runs) + 1))
-        mainpath = args.mainpath
+        study = os.environ['study']
+        experiments_name = os.environ['experiments'].split(',')
+        runs = list(range(1, int(os.environ['runs']) + 1))
+        mainpath = os.environ['mainpath']
 
         self.study = study
         self.experiments = experiments_name
         self.inner_metrics = ['median', 'max']
         self.runs = runs
-        self.final_gen = int(args.final_gen)
+        # self.final_gen = int(args.final_gen)
+        self.final_gen = int(os.environ['final_gen'])
 
-        self.path = f'/storage/{mainpath}/{study}'
+        # self.path = f'/storage/{mainpath}/{study}'
+        self.path = f'{mainpath}/{study}'
 
         self.measures = {
             'pop_diversity': ['Diversity', 0, 1],
@@ -166,15 +168,15 @@ class Analysis:
 #TODO: either separate by run or allow resuming
 
 parser = argparse.ArgumentParser()
-parser.add_argument("study")
-parser.add_argument("experiments")
-parser.add_argument("runs")
-parser.add_argument("final_gen")
-parser.add_argument("mainpath")
-args = parser.parse_args()
+# parser.add_argument("study")
+# parser.add_argument("experiments")
+# parser.add_argument("runs")
+# parser.add_argument("final_gen")
+# parser.add_argument("mainpath")
+# args = parser.parse_args()
 
 # TODO: break by environment
-analysis = Analysis(args)
+analysis = Analysis()
 analysis.consolidate()
 
 

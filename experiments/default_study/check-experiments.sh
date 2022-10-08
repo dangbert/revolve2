@@ -1,13 +1,10 @@
 #!/bin/bash
-#set -e
+set -e
 #set -x
 
-
-study="default_study"
-# arrays delimiter is space
-experiments=("defaultexperiment")
-runs=10
-mainpath="karine"
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/vars.sh" # read variables
+#runs=10
 
 # discover unfinished experiments
 
@@ -24,10 +21,8 @@ do
 
      #check experiments status
      if [[ -f "$file" ]]; then
-
-            lastgen=$(grep -c "Finished generation" $file);
-            echo " latest finished gen ${lastgen}";
-
+        lastgen=$(grep -c "Finished generation" $file);
+        echo " latest finished gen ${lastgen}";
      else
          # not started yet
          echo " None";
