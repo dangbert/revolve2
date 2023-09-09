@@ -7,6 +7,7 @@ The genotypes for both body and brain are CPPNWIN.
 
 import hashlib
 import logging
+from types import ModuleType
 from typing import List, Tuple, cast
 
 import config
@@ -94,8 +95,12 @@ def select_survivors(
     )
 
 
-def main() -> None:
-    """Run the program."""
+def run(config: ModuleType) -> None:
+    """
+    Run the program.
+
+    :param config: Config object to use.
+    """
     # set up logging we see all relevant logging messages
     logging.basicConfig(
         level=logging.INFO,
@@ -212,6 +217,11 @@ def main() -> None:
         with Session(dbengine, expire_on_commit=False) as ses:
             ses.add(generation)
             ses.commit()
+
+
+def main() -> None:
+    """Run the program."""
+    run(config)
 
 
 if __name__ == "__main__":

@@ -114,6 +114,4 @@ jobs:
       - name: install pytest dependencies
         run: pip install -r tests/requirements.txt
       - name: run pytest
-        run: 
-          echo "DISPLAY=$DISPLAY"
-          pytest -v tests/
+        run: pytest -v tests/

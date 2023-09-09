@@ -1,7 +1,7 @@
 #/bin/bash
 # helper script to install this repo's packages/dependencies (optionally in dev/edit mode).
 
-set -e
+set -ex
 
 SCRIPT_DIR="$(realpath "$(dirname "$0")")"
 ROOT_DIR="$(realpath "$SCRIPT_DIR/../..")"
@@ -9,10 +9,9 @@ ROOT_DIR="$(realpath "$SCRIPT_DIR/../..")"
 function main() {
     cd "$ROOT_DIR"
 
+    [[ "$OSTYPE" == "darwin"* ]] && export IS_MAC=true || export IS_MAC=false
     edit=()
     DEV=""
-
-    # TODO: support long form options like --import
     while getopts "ed" arg; do
         case $arg in
             e)
@@ -37,7 +36,13 @@ function main() {
     pip install "${edit[@]}" ./core$DEV
     pip install "${edit[@]}" ./standard_resources$DEV
     pip install "${edit[@]}" ./runners/mujoco$DEV
-    sudo apt install -y libcereal-dev
+
+    if ! $IS_MAC; then
+        sudo apt install -y libcereal-dev
+    else
+        brew install cereal
+    fi
+
     pip install "${edit[@]}" ./genotypes/cppnwin$DEV
     echo "install.sh complete!"
 }
