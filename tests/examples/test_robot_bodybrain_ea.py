@@ -18,9 +18,10 @@ def test_experiment_can_complete(tmpdir):
         "DATABASE_FILE": os.path.join(tmpdir, "run0.sqlite"),
         "POPULATION_SIZE": 4,
         "OFFSPRING_SIZE": 2,
-        "NUM_GENERATIONS": 1,
+        "NUM_GENERATIONS": 2,
     }
     for key, value in overrides.items():
         setattr(config, key, value)
 
     run(config)
+    assert os.path.exists(config.DATABASE_FILE)

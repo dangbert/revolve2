@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Run the example.
 
@@ -7,6 +8,7 @@ The genotype of the brain therefore is be a fixed length real-valued vector.
 
 import hashlib
 import logging
+from types import ModuleType
 from typing import Tuple
 
 import cma
@@ -42,8 +44,12 @@ def robot_to_actor_cpg(body: Body) -> Tuple[Actor, CpgNetworkStructure]:
     return actor, cpg_network_structure
 
 
-def main() -> None:
-    """Run the program."""
+def run(config: ModuleType) -> None:
+    """
+    Run the program.
+
+    :param config: Config object to use.
+    """
     # set up logging we see all relevant logging messages.
     logging.basicConfig(
         level=logging.INFO,
@@ -124,6 +130,11 @@ def main() -> None:
         with Session(dbengine, expire_on_commit=False) as ses:
             ses.add(generation)
             ses.commit()
+
+
+def main() -> None:
+    """Run the program."""
+    run(config)
 
 
 if __name__ == "__main__":

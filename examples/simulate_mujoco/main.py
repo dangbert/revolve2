@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Visualize and run a modular robot using Mujoco."""
 
 import argparse
