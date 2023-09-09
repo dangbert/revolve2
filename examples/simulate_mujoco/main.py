@@ -1,5 +1,6 @@
 """Visualize and run a modular robot using Mujoco."""
 
+import argparse
 import math
 from random import Random
 
@@ -51,7 +52,12 @@ class Simulator:
     Defines a control function that steps the controller and applies the degrees of freedom the controller provides.
     """
 
-    async def simulate(self, robot: ModularRobot, control_frequency: float) -> None:
+    async def simulate(
+        self,
+        robot: ModularRobot,
+        control_frequency: float,
+        simulation_time: int = 1000000,
+    ) -> None:
         """
         Simulate a robot.
 
@@ -59,7 +65,7 @@ class Simulator:
         :param control_frequency: Control frequency for the simulator.
         """
         batch = Batch(
-            simulation_time=1000000,
+            simulation_time=simulation_time,
             sampling_frequency=0.0001,
             simulation_timestep=0.001,
             control_frequency=control_frequency,
@@ -92,6 +98,16 @@ class Simulator:
 
 async def main() -> None:
     """Run the simulation."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--simulation-time",
+        "-t",
+        type=int,
+        default=1000000,
+        help="Number of seconds to run simulation.",
+    )
+    args = parser.parse_args()
+
     rng = Random()
     rng.seed(5)
 
@@ -108,7 +124,7 @@ async def main() -> None:
     robot = ModularRobot(body, brain)
 
     sim = Simulator()
-    await sim.simulate(robot, 60)
+    await sim.simulate(robot, 60, simulation_time=args.simulation_time)
 
 
 if __name__ == "__main__":
