@@ -5,7 +5,7 @@ from tests.conftest import EXAMPLES_DIR
 
 def test_experiment_can_complete(tmpdir):
     """Test that main.py can complete (without crashing)."""
-    sys.path.append(os.path.join(EXAMPLES_DIR, "robot_bodybrain_ea"))
+    sys.path.append(os.path.join(EXAMPLES_DIR, "robot_brain_cmaes"))
     from examples.robot_brain_cmaes.main import run
     import examples.robot_brain_cmaes.config as config
 
