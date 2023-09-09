@@ -63,6 +63,7 @@ class Simulator:
 
         :param robot: The robot to simulate.
         :param control_frequency: Control frequency for the simulator.
+        :param simulation_time: Duration for which to run the simulation (seconds).
         """
         batch = Batch(
             simulation_time=simulation_time,
