@@ -1,5 +1,6 @@
 import glob
 import os
+import sys
 import secrets
 import shutil
 
@@ -51,3 +52,22 @@ def run_around_tests():
 
 def get_uuid(length: int = 10):
     return str(secrets.token_hex(length))[:length]
+
+
+class add_path:
+    """
+    Temporarily adds a given path to `sys.path`
+    https://stackoverflow.com/a/39855753
+    """
+
+    def __init__(self, path: str):
+        self.path = path
+
+    def __enter__(self):
+        sys.path.insert(0, self.path)
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        try:
+            sys.path.remove(self.path)
+        except ValueError:
+            pass
