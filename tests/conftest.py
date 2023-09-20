@@ -69,5 +69,6 @@ class add_path:
     def __exit__(self, exc_type, exc_value, traceback):
         try:
             sys.path.remove(self.path)
-        except ValueError:
-            pass
+        except ValueError as err:
+            print(f"WARNING: failed to remove path from sys.path: '{self.path}'")
+            # raise err

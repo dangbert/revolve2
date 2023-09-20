@@ -23,5 +23,6 @@ def test_experiment_can_complete(tmpdir):
         for key, value in overrides.items():
             setattr(config, key, value)
 
+        print(f"ea: sys.path = ", sys.path)
         run(config)
         assert os.path.exists(config.DATABASE_FILE)
