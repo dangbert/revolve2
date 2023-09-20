@@ -2,12 +2,12 @@
 
 import logging
 
-import config
+from . import config
 import matplotlib.pyplot as plt
 import pandas
-from generation import Generation
-from individual import Individual
-from population import Population
+from .generation import Generation
+from .individual import Individual
+from .population import Population
 from revolve2.core.database import OpenMethod, open_database_sqlite
 from sqlalchemy import select
 

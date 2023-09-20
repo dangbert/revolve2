@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Run the example.
 
@@ -7,17 +8,18 @@ The genotypes for both body and brain are CPPNWIN.
 
 import hashlib
 import logging
+from types import ModuleType
 from typing import List, Tuple, cast
 
-import config
+from . import config
 import multineat
 import numpy as np
-from base import Base
-from evaluator import Evaluator
-from generation import Generation
-from genotype import Genotype
-from individual import Individual
-from population import Population
+from .base import Base
+from .evaluator import Evaluator
+from .generation import Generation
+from .genotype import Genotype
+from .individual import Individual
+from .population import Population
 from revolve2.core.database import OpenMethod, open_database_sqlite
 from revolve2.core.optimization.ea import population_management, selection
 from sqlalchemy.orm import Session
@@ -94,8 +96,12 @@ def select_survivors(
     )
 
 
-def main() -> None:
-    """Run the program."""
+def run(config: ModuleType) -> None:
+    """
+    Run the program.
+
+    :param config: Config object to use.
+    """
     # set up logging we see all relevant logging messages
     logging.basicConfig(
         level=logging.INFO,
@@ -212,6 +218,11 @@ def main() -> None:
         with Session(dbengine, expire_on_commit=False) as ses:
             ses.add(generation)
             ses.commit()
+
+
+def main() -> None:
+    """Run the program."""
+    run(config)
 
 
 if __name__ == "__main__":

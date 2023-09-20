@@ -4,8 +4,8 @@ from typing import List, TypeVar
 
 import sqlalchemy.ext.orderinglist
 import sqlalchemy.orm as orm
-from base import Base
-from parameters import Parameters
+from .base import Base
+from .parameters import Parameters
 from revolve2.core.database import HasId
 
 TIndividual = TypeVar("TIndividual")
