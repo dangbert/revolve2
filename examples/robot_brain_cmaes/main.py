@@ -12,15 +12,12 @@ from types import ModuleType
 from typing import Tuple
 
 import cma
-import config
+from . import config
 import numpy as np
-from base import Base
-from evaluator import Evaluator
-import importlib
-module = importlib.import_module("evaluator")
-print(f"FLAG Path of 'evaluator': {module.__file__}")
-from generation import Generation
-from parameters import Parameters
+from .base import Base
+from .evaluator import Evaluator
+from .generation import Generation
+from .parameters import Parameters
 from revolve2.actor_controllers.cpg import CpgNetworkStructure
 from revolve2.core.database import OpenMethod, open_database_sqlite
 from revolve2.core.modular_robot import Body

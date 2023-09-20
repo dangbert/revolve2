@@ -1,6 +1,6 @@
 """Generation class."""
 
-from base import Base
+from .base import Base
 from population import Population
 from revolve2.core.optimization.ea import Generation as GenericGeneration
 

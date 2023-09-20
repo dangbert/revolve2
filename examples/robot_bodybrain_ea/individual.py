@@ -1,6 +1,6 @@
 """Individual class."""
 
-from base import Base
+from .base import Base
 from genotype import Genotype
 from revolve2.core.optimization.ea import Individual as GenericIndividual
 

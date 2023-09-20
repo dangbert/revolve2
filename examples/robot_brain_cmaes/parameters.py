@@ -2,7 +2,7 @@
 
 import sqlalchemy
 import sqlalchemy.orm as orm
-from base import Base
+from .base import Base
 from revolve2.core.database import HasId
 from revolve2.core.optimization.ea import Parameters as GenericParameters
 

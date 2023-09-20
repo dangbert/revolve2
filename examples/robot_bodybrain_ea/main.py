@@ -11,15 +11,15 @@ import logging
 from types import ModuleType
 from typing import List, Tuple, cast
 
-import config
+from . import config
 import multineat
 import numpy as np
-from base import Base
-from evaluator import Evaluator
-from generation import Generation
-from genotype import Genotype
-from individual import Individual
-from population import Population
+from .base import Base
+from .evaluator import Evaluator
+from .generation import Generation
+from .genotype import Genotype
+from .individual import Individual
+from .population import Population
 from revolve2.core.database import OpenMethod, open_database_sqlite
 from revolve2.core.optimization.ea import population_management, selection
 from sqlalchemy.orm import Session
