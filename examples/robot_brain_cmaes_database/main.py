@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This is the 'robot_brain_cmaes' example, but with added saving of results to a database.
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Optimize a neural network to calculate XOR, using an evolutionary algorithm.
 

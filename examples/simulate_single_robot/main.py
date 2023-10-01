@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Simulate and visualize a single modular robot.
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Simulate a single modular robot, and then calculate its xy displacement.
 

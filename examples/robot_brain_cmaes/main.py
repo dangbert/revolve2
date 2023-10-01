@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Set up an experiment that optimizes the brain of a given robot body using CMA-ES.
 

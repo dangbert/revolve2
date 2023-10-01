@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Simulate modular robot that do not interact, and then calculate their xy displacement.
 

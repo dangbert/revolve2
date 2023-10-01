@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Script that uses rpi controller remote to control a rpi robot as an example."""
 
 import logging

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This is the 'robot_bodybrain_ea' example, but with added saving of results to a database.
 

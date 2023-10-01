@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 This example adds a database to the 'simple_ea_xor' example.
 

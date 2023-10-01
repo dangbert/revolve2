@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Set up a trivial experiment with muliple repetitions.
 
