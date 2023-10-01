@@ -12,9 +12,9 @@ You learn:
 """
 
 import logging
+from types import ModuleType
 
 import cma
-import config
 from evaluator import Evaluator
 from revolve2.ci_group.logging import setup_logging
 from revolve2.ci_group.rng import seed_from_time
@@ -25,6 +25,7 @@ from revolve2.modular_robot.brains import (
 
 def main() -> None:
     """Run the experiment."""
+    config = get_config()
     setup_logging(file_name="log.txt")
 
     # Get the actor and cpg network structure for the body of choice.
@@ -74,6 +75,13 @@ def main() -> None:
 
         # Increase the generation index counter.
         generation_index += 1
+
+
+def get_config() -> ModuleType:
+    """Return config object for experiment (can be mocked for unit testing)."""
+    import config
+
+    return config
 
 
 if __name__ == "__main__":
