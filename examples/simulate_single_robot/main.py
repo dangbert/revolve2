@@ -7,6 +7,7 @@ You learn:
 - How to simulate and see a robot.
 """
 
+import argparse
 import asyncio
 
 from revolve2.ci_group import terrains
@@ -48,6 +49,16 @@ def make_body() -> Body:
 
 def main() -> None:
     """Run the simulation."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--simulation-time",
+        "-t",
+        type=int,
+        default=1000000,
+        help="Number of seconds to run simulation.",
+    )
+    args = parser.parse_args()
+
     # Set up a random number generater, used later.
     RNG_SEED = 5
     rng = make_rng(RNG_SEED)
@@ -65,7 +76,9 @@ def main() -> None:
     # In this case there is a single simulation containing a single robot.
     # We use the 'standard' parameters for robot simulation.
     # You probably don't have to worry about this, but if you are interested, take a look inside the function.
-    batch = create_batch_single_robot_standard(robot=robot, terrain=terrains.flat())
+    batch = create_batch_single_robot_standard(
+        robot=robot, terrain=terrains.flat(), simulation_time=args.simulation_time
+    )
 
     # Create a runner that will perform the simulation.
     # This tutorial chooses to use Mujoco, but your version of revolve might contain other simulators as well.
