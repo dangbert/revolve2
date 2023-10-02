@@ -78,7 +78,11 @@ def main() -> None:
 
 
 def get_config() -> ModuleType:
-    """Return config object for experiment (can be mocked for unit testing)."""
+    """
+    Return config object for experiment (can be mocked for unit testing).
+
+    :returns: Config object for experiment.
+    """
     import config
 
     return config

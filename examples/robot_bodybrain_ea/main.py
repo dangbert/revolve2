@@ -20,8 +20,8 @@ You learn:
 
 import logging
 import pickle
+from types import ModuleType
 
-import config
 import multineat
 import numpy as np
 import numpy.typing as npt
@@ -118,6 +118,7 @@ def find_best_robot(
 
 def main() -> None:
     """Run the program."""
+    config = get_config()
     # Set up standard logging.
     setup_logging(file_name="log.txt")
 
@@ -204,6 +205,17 @@ def main() -> None:
 
         # Increase the generation index counter.
         generation_index += 1
+
+
+def get_config() -> ModuleType:
+    """
+    Return config object for experiment (can be mocked for unit testing).
+
+    :returns: Config object for experiment.
+    """
+    import config
+
+    return config
 
 
 if __name__ == "__main__":
