@@ -1,12 +1,13 @@
 """Rerun a robot with given body and parameters."""
 
-from .main import get_config
 import numpy as np
 from evaluator import Evaluator
 from revolve2.ci_group.logging import setup_logging
 from revolve2.modular_robot.brains import (
     body_to_actor_and_cpg_network_structure_neighbour,
 )
+
+from .main import get_config
 
 # These are set of parameters that we optimized using CMA-ES.
 # You can copy your own parameters from the optimization output log.
