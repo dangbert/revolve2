@@ -1,6 +1,6 @@
 """Rerun a robot with given body and parameters."""
 
-import config
+from .main import get_config
 import numpy as np
 from evaluator import Evaluator
 from revolve2.ci_group.logging import setup_logging
@@ -32,6 +32,7 @@ PARAMS = np.array(
 def main() -> None:
     """Perform the rerun."""
     setup_logging()
+    config = get_config()
 
     _, cpg_network_structure = body_to_actor_and_cpg_network_structure_neighbour(
         config.BODY

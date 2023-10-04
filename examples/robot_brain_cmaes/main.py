@@ -15,7 +15,7 @@ import logging
 from types import ModuleType
 
 import cma
-from evaluator import Evaluator
+from .evaluator import Evaluator
 from revolve2.ci_group.logging import setup_logging
 from revolve2.ci_group.rng import seed_from_time
 from revolve2.modular_robot.brains import (
@@ -83,7 +83,7 @@ def get_config() -> ModuleType:
 
     :returns: Config object for experiment.
     """
-    import config
+    from . import config
 
     return config
 
