@@ -1,32 +1,26 @@
-"""
-This is the 'robot_bodybrain_ea' example, but with added saving of results to a database.
-
-Definitely first look at the 'robot_bodybrain_ea' and 'simple_ea_xor_database' examples.
-Many explanation comments are omitted here.
-
-You learn:
-- Nothing new in particular, but this can be a good starting point for your own experiments.
-"""
+"""Main script for the example."""
 
 import logging
+from types import ModuleType
 
-import config
 import multineat
 import numpy as np
 import numpy.typing as npt
-from base import Base
-from evaluator import Evaluator
-from experiment import Experiment
-from generation import Generation
-from genotype import Genotype
-from individual import Individual
-from population import Population
-from revolve2.ci_group.logging import setup_logging
-from revolve2.ci_group.rng import make_rng, seed_from_time
 from revolve2.experimentation.database import OpenMethod, open_database_sqlite
+from revolve2.experimentation.logging import setup_logging
 from revolve2.experimentation.optimization.ea import population_management, selection
+from revolve2.experimentation.rng import make_rng, seed_from_time
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
+
+from . import config
+from .base import Base
+from .evaluator import Evaluator
+from .experiment import Experiment
+from .generation import Generation
+from .genotype import Genotype
+from .individual import Individual
+from .population import Population
 
 
 def select_parents(
@@ -124,7 +118,7 @@ def run_experiment(dbengine: Engine) -> None:
     logging.info("----------------")
     logging.info("Start experiment")
 
-    # Set up the random number generater.
+    # Set up the random number generator.
     rng_seed = seed_from_time()
     rng = make_rng(rng_seed)
 
@@ -230,7 +224,7 @@ def run_experiment(dbengine: Engine) -> None:
 
 def main() -> None:
     """Run the program."""
-    # Set up standard logging.
+    # Set up logging.
     setup_logging(file_name="log.txt")
 
     # Open the database, only if it does not already exists.
@@ -243,6 +237,17 @@ def main() -> None:
     # Run the experiment several times.
     for _ in range(config.NUM_REPETITIONS):
         run_experiment(dbengine)
+
+
+def get_config() -> ModuleType:
+    """
+    Return config object for experiment (can be mocked for unit testing).
+
+    :returns: Config object for experiment.
+    """
+    from . import config
+
+    return config
 
 
 if __name__ == "__main__":

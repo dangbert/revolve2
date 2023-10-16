@@ -1,35 +1,19 @@
-"""
-Run the example.
-
-A modular robot body and brain will be optimized using a simple evolutionary algorithm.
-The genotypes for both body and brain are CPPNWIN.
-"""
-
-"""
-Set up an experiment that optimizes the body and brain of a robot using a simple evolutionary algorithm.
-
-The genotypes for both body and brain are CPPNWIN.
-
-Before starting this tutorial, it is useful to look at the 'experiment_setup', 'evaluate_multiple_isolated_robots', and 'simple_ea_xor' examples.
-It is also nice to understand the concept of a cpg brain and CPPN, although not really needed.
-
-You learn:
-- How to optimize the body and brain of a robot using an EA.
-"""
+"""Main script for the example."""
 
 import logging
 import pickle
+from types import ModuleType
 
-import config
 import multineat
 import numpy as np
 import numpy.typing as npt
-from evaluator import Evaluator
-from genotype import Genotype
-from individual import Individual
-from revolve2.ci_group.logging import setup_logging
-from revolve2.ci_group.rng import make_rng_time_seed
+from revolve2.experimentation.logging import setup_logging
 from revolve2.experimentation.optimization.ea import population_management, selection
+from revolve2.experimentation.rng import make_rng_time_seed
+
+from .evaluator import Evaluator
+from .genotype import Genotype
+from .individual import Individual
 
 
 def select_parents(
@@ -117,10 +101,12 @@ def find_best_robot(
 
 def main() -> None:
     """Run the program."""
-    # Set up standard logging.
+    # Set up logging.
     setup_logging(file_name="log.txt")
 
-    # Set up the random number generater.
+    config = get_config()
+
+    # Set up the random number generator.
     rng = make_rng_time_seed()
 
     # Intialize the evaluator that will be used to evaluate robots.
@@ -182,7 +168,7 @@ def main() -> None:
             [genotype.develop() for genotype in offspring_genotypes]
         )
 
-        # <ake an intermediate offspring population.
+        # Make an intermediate offspring population.
         offspring_population = [
             Individual(genotype, fitness)
             for genotype, fitness in zip(offspring_genotypes, offspring_fitnesses)
@@ -203,6 +189,17 @@ def main() -> None:
 
         # Increase the generation index counter.
         generation_index += 1
+
+
+def get_config() -> ModuleType:
+    """
+    Return config object for experiment (can be mocked for unit testing).
+
+    :returns: Config object for experiment.
+    """
+    from . import config
+
+    return config
 
 
 if __name__ == "__main__":

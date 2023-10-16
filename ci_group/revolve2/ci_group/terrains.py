@@ -5,12 +5,14 @@ import math
 import numpy as np
 import numpy.typing as npt
 from noise import pnoise2
-from pyrr import Quaternion, Vector3
-from revolve2.simulation import Terrain
-from revolve2.simulation.running import geometry
+from pyrr import Vector3
+from revolve2.modular_robot_simulation import Terrain
+from revolve2.simulation.scene import Pose
+from revolve2.simulation.scene.geometry import GeometryHeightmap, GeometryPlane
+from revolve2.simulation.scene.vector2 import Vector2
 
 
-def flat(size: Vector3 = Vector3([20.0, 20.0, 0.0])) -> Terrain:
+def flat(size: Vector2 = Vector2([20.0, 20.0])) -> Terrain:
     """
     Create a flat plane terrain.
 
@@ -19,9 +21,9 @@ def flat(size: Vector3 = Vector3([20.0, 20.0, 0.0])) -> Terrain:
     """
     return Terrain(
         static_geometry=[
-            geometry.Plane(
-                position=Vector3(),
-                orientation=Quaternion(),
+            GeometryPlane(
+                pose=Pose(),
+                mass=0.0,
                 size=size,
             )
         ]
@@ -74,9 +76,9 @@ def crater(
 
     return Terrain(
         static_geometry=[
-            geometry.Heightmap(
-                position=Vector3(),
-                orientation=Quaternion(),
+            GeometryHeightmap(
+                pose=Pose(),
+                mass=0.0,
                 size=Vector3([size[0], size[1], max_height]),
                 base_thickness=0.1 + ruggedness,
                 heights=heightmap,

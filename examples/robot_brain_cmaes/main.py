@@ -1,36 +1,32 @@
-"""
-Set up an experiment that optimizes the brain of a given robot body using CMA-ES.
-
-As the body is static, the genotype of the brain will be a fixed length real-valued vector.
-
-Before starting this tutorial, it is useful to look at the 'experiment_setup' and 'evaluate_multiple_isolated_robots' examples.
-It is also nice to understand the concept of a cpg brain, although not really needed.
-
-You learn:
-- How to optimize the brain of a robot using CMA-ES.
-"""
+"""Main script for the example."""
 
 import logging
+from types import ModuleType
 
 import cma
-import config
-from evaluator import Evaluator
-from revolve2.ci_group.logging import setup_logging
-from revolve2.ci_group.rng import seed_from_time
-from revolve2.modular_robot.brains import (
-    body_to_actor_and_cpg_network_structure_neighbour,
+from revolve2.experimentation.logging import setup_logging
+from revolve2.experimentation.rng import seed_from_time
+from revolve2.modular_robot.brain.cpg import (
+    active_hinges_to_cpg_network_structure_neighbor,
 )
+
+from .evaluator import Evaluator
 
 
 def main() -> None:
     """Run the experiment."""
+    config = get_config()
     setup_logging(file_name="log.txt")
 
-    # Get the actor and cpg network structure for the body of choice.
-    # The cpg network structure describes the connections between neurons in the cpg brain.
-    _, cpg_network_structure = body_to_actor_and_cpg_network_structure_neighbour(
-        config.BODY
-    )
+    # Find all active hinges in the body
+    active_hinges = config.BODY.find_active_hinges()
+
+    # Create a structure for the CPG network from these hinges.
+    # This also returns a mapping between active hinges and the index of there corresponding cpg in the network.
+    (
+        cpg_network_structure,
+        output_mapping,
+    ) = active_hinges_to_cpg_network_structure_neighbor(active_hinges)
 
     # Intialize the evaluator that will be used to evaluate robots.
     evaluator = Evaluator(
@@ -38,6 +34,7 @@ def main() -> None:
         num_simulators=config.NUM_SIMULATORS,
         cpg_network_structure=cpg_network_structure,
         body=config.BODY,
+        output_mapping=output_mapping,
     )
 
     # Initial parameter values for the brain.
@@ -73,6 +70,17 @@ def main() -> None:
 
         # Increase the generation index counter.
         generation_index += 1
+
+
+def get_config() -> ModuleType:
+    """
+    Return config object for experiment (can be mocked for unit testing).
+
+    :returns: Config object for experiment.
+    """
+    from . import config
+
+    return config
 
 
 if __name__ == "__main__":

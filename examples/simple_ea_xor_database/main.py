@@ -1,31 +1,4 @@
-"""
-This example adds a database to the 'simple_ea_xor' example.
-
-Naturally, look at that example first.
-
-You learn:
-- How to save intermediate and final results to a database using the SQLAlchemy ORM.
-
-Beforehand you should have:
-- A basic understanding of relational databases.
-- An understanding of dataclasses is beneficial.
-
-Introduction:
-In the previous example, all results were written to the console.
-We would like to store all interesting data we come across in a more structured way.
-There are many options, such as saving text to files, various kinds of databases, or others such as the 'weights and biases' service.
-Here we choose to use the SQLite database.
-This a local relational database stored in a single file that is designed to be as simple as possible.
-It is very beneficial to have a basic understanding of relational databases, as this tutorial will not explain them in-depth.
-
-To simplify working with this database, we will use to 'object-relational mapping' (ORM) library 'SQLAlchemy'.
-This software lets you declare the database structure in Python, simply by creating classes similar to Python's 'dataclass'.
-If you do not know what a dataclass is, it is worth looking that up.
-However, it will probably also become apparent how SQLAlchemy works without that knowledge.
-The main addition in this tutorial is that some classes are changed or added to follow this ORM description.
-If at any point you do not understand something related to SQLAlchemy,
-be aware that it is a third-party library with an extensive documentation available to you online.
-"""
+"""Main script for the example."""
 
 import logging
 
@@ -39,10 +12,10 @@ from generation import Generation
 from genotype import Genotype
 from individual import Individual
 from population import Population
-from revolve2.ci_group.logging import setup_logging
-from revolve2.ci_group.rng import make_rng, seed_from_time
 from revolve2.experimentation.database import OpenMethod, open_database_sqlite
+from revolve2.experimentation.logging import setup_logging
 from revolve2.experimentation.optimization.ea import population_management, selection
+from revolve2.experimentation.rng import make_rng, seed_from_time
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
 
@@ -126,7 +99,7 @@ def run_experiment(dbengine: Engine) -> None:
     logging.info("----------------")
     logging.info("Start experiment")
 
-    # Set up the random number generater.
+    # Set up the random number generator.
     # We are manually generating the seed, because we are going to save it in our database.
     rng_seed = seed_from_time()
     rng = make_rng(rng_seed)
@@ -228,7 +201,7 @@ def run_experiment(dbengine: Engine) -> None:
 
 def main() -> None:
     """Run the program."""
-    # Set up standard logging.
+    # Set up logging.
     setup_logging(file_name="log.txt")
 
     # Open the database, only if it does not already exist.
